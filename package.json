@@ -1,20 +1,63 @@
 {
   "name": "aectech2021-3dviewer",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "index.js",
+  "author": "",
   "scripts": {
-    "start": "node index.js",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tt-acm/aectech2021-3dviewer.git"
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "concurrently": "^7.4.0",
+    "core-js": "^3.8.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "vue": "^2.6.14"
   },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "aectech2021-3dviewer@1.0.0",
   "bugs": {
     "url": "https://github.com/tt-acm/aectech2021-3dviewer/issues"
   },
-  "homepage": "https://github.com/tt-acm/aectech2021-3dviewer#readme"
+  "homepage": "https://github.com/tt-acm/aectech2021-3dviewer#readme",
+  "license": "ISC",
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tt-acm/aectech2021-3dviewer.git"
+  }
 }
