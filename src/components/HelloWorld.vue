@@ -1,39 +1,43 @@
 <template>
-  <div class="hello">
-    <p>{{ msg }}</p>
-    <h1>Helloo World!!</h1>
-    <input type="button" value="Click Me" @click="buttonClicked" />
+  <div>
+    <div id="threeContainer">
+      <Three />
+    </div>
+    <h1>HelloWorld</h1>
+    <div>
+      <p>Test your backend connection.</p>
+      <input type="button" value="Check" @click="runCheck" />
+      <p>{{ msg }}</p>
+    </div>
   </div>
 </template>
 
 <script>
+import Three from "./Three.vue";
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  components: {
+    Three
+  },
+  data() {
+    return {
+      msg: ""
+    };
   },
   methods: {
-    async buttonClicked() {
-      console.log("CLIcked!!");
+    runCheck() {
+      console.log("Making request");
+      fetch("/api/test")
+        .then(data => data.text())
+        .then(res => (this.msg = res));
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+#threeContainer {
+  height: 600px;
+  width: 100%;
 }
 </style>
