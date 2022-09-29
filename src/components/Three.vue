@@ -3,7 +3,9 @@
     <div id="wrapper">
       <div id="container" @mousedown="onMouseDown" @mouseup="onMouseUp"></div>
     </div>
+    <input type="button" value="Click Me!" @click="onBtnClick" />
   </div>
+  
 </template>
 
 <script>
@@ -12,6 +14,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { STLLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 window.THREE = THREE;
 let container, renderer, scene, camera, controls, composer;
 let sceneContent;
@@ -68,6 +73,10 @@ export default {
         false
       );
       this.onContainerResize();
+
+      // LOAD STL
+      // this.loadSTL()
+      this.load3dm()
     },
     animate() {
       renderer.setAnimationLoop(() => {
@@ -146,7 +155,59 @@ export default {
       if (!sceneContent) return;
       this.scaleFactor = scaleFactor;
       sceneContent.scale.set(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    },
+    // 3D MODELS
+
+    // loadGltf() {
+    //   let sceneObject = new THREE.Object3D();
+    //   let gltfLoader = new GLTFLoader();
+    //   let url = "<YOUR_PATH_TO_MODEL>";
+    //   gltfLoader.load(url, gltf => {
+    //     let modelData = gltf.scene;
+    //     sceneObject.add(modelData);
+    //     scene.add(sceneContent);
+    // });
+    // }
+    load3dm() {
+    let sceneObject = new THREE.Object3D();
+    let rh3dmLoader = new Rhino3dmLoader();
+    rh3dmLoader.setLibraryPath(
+      "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/"
+    );
+    rh3dmLoader.load("models/Model_02.3dm", function(model) {
+        sceneObject.add(model);
+        sceneObject.rotation.x = -Math.PI / 2;
+        sceneContent = sceneObject;
+        scene.add(sceneContent);
+      });
     }
+
+    // loadSTL() {
+    //   const material = new THREE.MeshPhysicalMaterial({
+    //     color: 0xb2ffc8,
+    //     metalness: 0.25,
+    //     roughness: 0.1,
+    //     opacity: 1.0,
+    //     transparent: true,
+    //     transmission: 0.99,
+    //     clearcoat: 1.0,
+    //     clearcoatRoughness: 0.25
+    //   })
+    //   const loader = new STLLoader()
+    //   loader.load(
+    //   'models/robot.stl',
+    //   function (geometry) {
+    //       const mesh = new THREE.Mesh(geometry, material)
+    //       scene.add(mesh)
+    //   },
+    //   (xhr) => {
+    //       console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+    //   },
+    //   (error) => {
+    //       console.log(error)
+    //   }
+    //   )
+    // }
   },
   mounted() {
     this.init();
