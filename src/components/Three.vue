@@ -28,6 +28,7 @@ export default {
       scaleFactor: 10
     };
   },
+  
   methods: {
     onContainerResize() {
       camera.aspect = container.clientWidth / container.clientHeight;
@@ -76,6 +77,7 @@ export default {
 
       // LOAD STL
       // this.loadSTL()
+      // this.loadGltf()
       this.load3dm()
     },
     animate() {
@@ -161,54 +163,47 @@ export default {
     // loadGltf() {
     //   let sceneObject = new THREE.Object3D();
     //   let gltfLoader = new GLTFLoader();
-    //   let url = "<YOUR_PATH_TO_MODEL>";
+    //   let url = "models/Mouse.glb";
     //   gltfLoader.load(url, gltf => {
     //     let modelData = gltf.scene;
     //     sceneObject.add(modelData);
     //     scene.add(sceneContent);
     // });
     // }
+
+    // .3dm model
+
     load3dm() {
-    let sceneObject = new THREE.Object3D();
-    let rh3dmLoader = new Rhino3dmLoader();
-    rh3dmLoader.setLibraryPath(
-      "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/"
-    );
-    rh3dmLoader.load("models/Model_02.3dm", function(model) {
+      let sceneObject = new THREE.Object3D();
+      let rh3dmLoader = new Rhino3dmLoader();
+      rh3dmLoader.setLibraryPath(
+        "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/"
+      );
+      rh3dmLoader.load("models/Model_02.3dm", function(model) {
         sceneObject.add(model);
-        sceneObject.rotation.x = -Math.PI / 2;
+        sceneObject.rotation.x = - Math.PI / 2;
         sceneContent = sceneObject;
         scene.add(sceneContent);
       });
-    }
+    },
+
+    // .stl Model
 
     // loadSTL() {
-    //   const material = new THREE.MeshPhysicalMaterial({
-    //     color: 0xb2ffc8,
-    //     metalness: 0.25,
-    //     roughness: 0.1,
-    //     opacity: 1.0,
-    //     transparent: true,
-    //     transmission: 0.99,
-    //     clearcoat: 1.0,
-    //     clearcoatRoughness: 0.25
-    //   })
-    //   const loader = new STLLoader()
-    //   loader.load(
-    //   'models/robot.stl',
-    //   function (geometry) {
-    //       const mesh = new THREE.Mesh(geometry, material)
-    //       scene.add(mesh)
-    //   },
-    //   (xhr) => {
-    //       console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-    //   },
-    //   (error) => {
-    //       console.log(error)
-    //   }
-    //   )
+    //   let sceneObject = new THREE.Object3D();
+    // let STLLoader = new STLLoader();
+    // // STLLoader.setLibraryPath(
+    // //   "https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/"
+    // // );
+    // STLLoader.load("models/robot.stl", function(model) {
+    //     sceneObject.add(model);
+    //     sceneObject.rotation.x = -Math.PI / 2;
+    //     sceneContent = sceneObject;
+    //     scene.add(sceneContent);
+    //   });
     // }
   },
+
   mounted() {
     this.init();
     this.animate();
